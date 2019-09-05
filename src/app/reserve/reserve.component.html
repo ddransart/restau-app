@@ -1,0 +1,66 @@
+<div *ngIf="!isScheduleOk">
+  <!-- Reactive form avec FormBuilder-->
+  <form [formGroup]="reservationForm" (submit)="saveReservation()">
+
+    <!-- Date-->
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker" placeholder="Choisir une date" formControlName="date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker startView="year"></mat-datepicker>
+    </mat-form-field>
+
+    <!-- Heure -->
+    <mat-form-field>
+      <mat-select placeholder="Heure" formControlName="time">
+        <mat-option *ngFor="let to of timeOptions" [value]="to">
+          {{ to }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- People options-->
+    <mat-form-field>
+      <mat-select placeholder="Combien de personnes" formControlName="people">
+        <mat-option *ngFor="let po of peopleOptions" [value]="po">
+          {{ po }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-button type="submit">Confirmer l'horaire</button>
+  </form>
+
+  {{ reservationForm.value | json }}
+</div>
+
+
+<div *ngIf="isScheduleOk">
+
+  <!-- Formulaire de réservation // Template driven form  // name est requis pour que ng sache comment associer l'input à sa variable typescript -->
+  <form #f="ngForm" (submit)="finalizeReservation(f)">
+
+    <!-- Prénom -->
+    <mat-form-field>
+      <input matInput type="text" name="firstName" [(ngModel)]="client.firstName" placeholder="Prénom">
+    </mat-form-field>
+
+    <!-- Nom -->
+    <mat-form-field>
+      <input matInput type="text" name="lastName" [(ngModel)]="client.lastName" placeholder="Nom">
+    </mat-form-field>
+
+    <!-- Email -->
+    <mat-form-field>
+      <input matInput type="text" name="email" [(ngModel)]="client.email" placeholder="Email">
+    </mat-form-field>
+
+    <!-- Phone -->
+    <mat-form-field>
+      <input matInput type="text" name="phone" [(ngModel)]="client.phone" placeholder="Tél">
+    </mat-form-field>
+
+    <button mat-button type="submit">Réserver</button>
+  </form>
+
+  {{ f.controls.firstName?.value | json }}
+</div>

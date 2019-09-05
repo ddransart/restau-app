@@ -1,0 +1,11 @@
+
+<!-- COmposant enfant de contactCOmponent -->
+
+<!-- On veut afficher plusieurs numéro de téléphones. -->
+<restau-phone [user]="standard" (zoom)="displayBig($event)"></restau-phone>
+<hr>
+<restau-phone [user]="sommelier" (zoom)="displayBig($event)"></restau-phone>
+<hr>
+<restau-phone [user]="boucher" (zoom)="displayBig($event)"></restau-phone>
+
+<div class="phone" *ngIf="numberToDisplay"> {{ numberToDisplay }} </div>
